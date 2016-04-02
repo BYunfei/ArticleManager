@@ -12,7 +12,13 @@
 
 		<action name="login" class="cn.iwalkers.action.LoginAction">
 			<result name="error">/content/error.jsp</result>
-			<result name="success">/WEB-INF/user/user_info.jsp</result>
+			<result name="success">/WEB-INF/user/user_article_list.jsp</result>
+		</action>
+		
+		<action name="Article_*" class="cn.iwalkers.action.ArticleAction" method="{1}">
+			<result name="viewDetial">/WEB-INF/user/article_detial.jsp?article_id=${article_id}</result>
+			<result name="editArticle">/WEB-INF/user/edit_article.jsp?article_id=${article_id}</result>
+			<result>/WEB-INF/user/user_article_list.jsp</result>
 		</action>
 
 	</package>

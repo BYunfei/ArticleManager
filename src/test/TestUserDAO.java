@@ -24,24 +24,23 @@ public class TestUserDAO {
 	
 	@Test
 	public void testGetUserByID(){
-		User u = new UserDao().getUserById(45);
+		User u = new UserDao().getUserById(10);
 		System.out.println("Get By ID: "+u.getPassword());
 	}
 	
 	@Test
 	public void testGetUserByUsername(){
-		User u = new UserDao().getUserByUsername("sicoq3");
+		User u = new UserDao().getUserByUsername("abc");
 		System.out.println("Get By Username: "+u.getPassword());
 	}
 	
 	@Test
 	public void testUpdateUser(){
-		User u = new UserDao().getUserById(45);
+		User u = new UserDao().getUserById(12);
 		u.setPassword("hahaha");
 		new UserDao().update(u);
 	}
 	
-	@Test
 	public void testDeleteUser(){
 		new UserDao().delete(60);
 	}

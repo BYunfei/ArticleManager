@@ -1,23 +1,31 @@
 package cn.iwalkers.action;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.apache.struts2.interceptor.SessionAware;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class LoginAction<T> extends ActionSupport implements ServletRequestAware, ServletResponseAware {
+import cn.iwalkers.services.UserServiceImpl;
+
+public class LoginAction extends ActionSupport implements ServletRequestAware, ServletResponseAware, SessionAware{
 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
-	private HttpSession session;
+	private Map session;
 	
 	private String username;
 	private String password;
+	
+	
 	
 	@Override
 	public String execute() throws Exception {
@@ -25,7 +33,14 @@ public class LoginAction<T> extends ActionSupport implements ServletRequestAware
 			this.addFieldError("username", "用户名不能为空");
 		if("".equals(password))
 			this.addFieldError("password", "密码不能为空");
-		return super.execute();
+		if(new UserServiceImpl().login(username, password)){
+			session.put("username", this.username);
+			return SUCCESS;
+		}
+		else{
+			this.addFieldError("password", "密码错误");
+		}
+		return ERROR;
 	}
 	
 	@Override
@@ -46,14 +61,6 @@ public class LoginAction<T> extends ActionSupport implements ServletRequestAware
 		this.request = request;
 	}
 
-	public HttpSession getSession() {
-		return session;
-	}
-
-	public void setSession(HttpSession session) {
-		this.session = session;
-	}
-
 	public String getUsername() {
 		return username;
 	}
@@ -69,5 +76,12 @@ public class LoginAction<T> extends ActionSupport implements ServletRequestAware
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
+
+
 
 }

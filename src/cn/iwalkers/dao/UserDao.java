@@ -140,9 +140,7 @@ public class UserDao {
 	
 	public User getUserByUsername(String username){
 		Session session = HibernateUtil.currentSession();
-		Transaction tx = null;
 		try{
-			tx = session.getTransaction();
 			String hql = "from User u where username = :username";
 			Query query= session.createQuery(hql);
 			query.setString("username", username);
@@ -150,7 +148,6 @@ public class UserDao {
 			return u;
 		}catch(Exception e){
 			e.printStackTrace();
-			tx.rollback();
 			return null;
 		}finally{
 			HibernateUtil.closeSession();

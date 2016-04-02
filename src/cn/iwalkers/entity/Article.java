@@ -25,7 +25,6 @@ public class Article {
 	private String title;
 	@ManyToOne(targetEntity = User.class)
 	@JoinColumn(name = "user_id", referencedColumnName="user_id",nullable = false)
-	@Cascade(CascadeType.ALL)
 	private User author;
 	@Column(name = "article_publishDate")
 	private Date publishDate;

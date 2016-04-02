@@ -1,5 +1,9 @@
 package cn.iwalkers.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -68,5 +72,25 @@ public class ArticleDao{
 		}finally{
 			HibernateUtil.closeSession();
 		}
+	}
+	
+	public List<Article> getArticleByUserId(int user_id){
+		Session session = HibernateUtil.currentSession();
+		Transaction tx = null;
+		List<Article> articleList ;
+		try{
+			articleList = new ArrayList<>();
+			tx = session.beginTransaction();
+			String hql = "From Article article where author = :user_id";
+			List pl = session.createQuery(hql).setString("user_id", new Integer(user_id).toString()).list();
+			for(Object ele:pl ){
+				Article artcile = (Article) ele;
+				articleList.add(artcile);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return articleList;
 	}
 }

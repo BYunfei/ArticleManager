@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,8 +24,7 @@ public class User{
 	private String username; //管理员的用户名
 	@Column(name = "user_password")
 	private String password; //管理员的密码
-	@OneToMany(targetEntity=Article.class)
-	@JoinColumn(name="user_id")
+	@OneToMany(targetEntity=Article.class,mappedBy="author")
 	@Cascade(CascadeType.ALL)
 	private Set<Article> article;
 
