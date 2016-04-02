@@ -40,7 +40,23 @@ public class ArticleDao{
 		}finally{
 			HibernateUtil.closeSession();
 		}
-	}	
+	}
+	
+	public void delete(int id){
+		Session session = HibernateUtil.currentSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			String hql = "delete Article article where article.id = :id";
+			session.createQuery(hql).setString("id", new Integer(id).toString()).executeUpdate();
+			tx.commit();
+		}catch(Exception e){
+			e.printStackTrace();
+			tx.rollback();
+		}finally {
+			HibernateUtil.closeSession();
+		}
+	}
 	
 	public void update(Article article){
 		Session session = HibernateUtil.currentSession();
@@ -92,5 +108,28 @@ public class ArticleDao{
 			return null;
 		}
 		return articleList;
+	}
+	
+	public List<Article> getAllArticles(){
+		Session session = HibernateUtil.currentSession();
+		Transaction tx = null;
+		List<Article> articleList;
+		try{
+			articleList = new ArrayList<>();
+			tx = session.beginTransaction();
+			String hql = "From Article article";
+			List pl = session.createQuery(hql).list();
+			for(Object ele: pl){
+				Article article = (Article) ele;
+				articleList.add(article);
+			}
+			return articleList;
+		}catch(Exception e){
+			e.printStackTrace();
+			tx.rollback();
+			return null;
+		}finally{
+			HibernateUtil.closeSession();
+		}
 	}
 }

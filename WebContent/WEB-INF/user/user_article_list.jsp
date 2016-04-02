@@ -5,27 +5,32 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>文章列表</title>
 </head>
 <body>
-<%
+<%	
+
 	User u = new UserDao().getUserByUsername(session.getAttribute("username").toString());
 	List<Article> articleList = new ArticleDao().getArticleByUserId(u.getId());
 %>
 
-<h1><%=request.getAttribute("username") %>,你好</h1>
+<h1><%=u.getUsername() %>,你好</h1>
+<nav>
+	<a href="Article_catalog.action?target=homePage">首页</a>
+	<a href="Article_catalog.action?target=userArticleList">文章列表</a>
+	<a href="Article_catalog.action?target=addPage">添加文章</a>
+</nav>
 <hr>
 <h2>文章列表</h2>
 <%
 	for(Article article : articleList){
-		
 %>
 <div>
-	<h3><a href="Article_detial.action?article_id=<%=article.getId() %>"><%=article.getTitle() %></a></h3>
+	<h3><a href="Article_catalog.action?target=user_article_detial&article_id=<%=article.getId() %>"><%=article.getTitle() %></a></h3>
 	<p><%=article.getContent() %></p>
 </div>
 <%

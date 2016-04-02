@@ -16,8 +16,14 @@
 		</action>
 		
 		<action name="Article_*" class="cn.iwalkers.action.ArticleAction" method="{1}">
-			<result name="viewDetial">/WEB-INF/user/article_detial.jsp?article_id=${article_id}</result>
+			<result name="user_article_detial">/WEB-INF/user/user_article_detial.jsp?article_id=${article_id}</result>
+			<result name="userArticleList">/WEB-INF/user/user_article_list.jsp</result>
+			<result name="article_detial">/WEB-INF/article/article_detial.jsp?article_id=${article_id}</result>
+			<result name="article_list">/WEB-INF/article/article_list.jsp</result>
 			<result name="editArticle">/WEB-INF/user/edit_article.jsp?article_id=${article_id}</result>
+			<result name="update_success">/WEB-INF/user/user_article_detial.jsp?article_id=${article_id}</result>
+			<result name="homePage">/index.jsp</result>
+			<result name="addPage">/WEB-INF/user/article_add.jsp</result>
 			<result>/WEB-INF/user/user_article_list.jsp</result>
 		</action>
 

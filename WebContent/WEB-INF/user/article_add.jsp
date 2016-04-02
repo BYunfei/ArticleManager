@@ -1,3 +1,4 @@
+<%@page import="cn.iwalkers.dao.UserDao"%>
 <%@page import="cn.iwalkers.entity.User"%>
 <%@page import="cn.iwalkers.entity.Article"%>
 <%@page import="cn.iwalkers.dao.ArticleDao"%>
@@ -10,25 +11,22 @@
 <title>编辑文章</title>
 </head>
 <body>
-	<%
-		Article article = new ArticleDao().getArticleById(Integer.parseInt(request.getParameter("article_id")));
-		User author = article.getAuthor();
-	%>
-	<form action="Article_update.action" method="get">
+<nav>
+	<a href="Article_catalog.action?target=userArticleList">文章列表</a>
+	<a href="Article_catalog.action?target=addPage">添加文章</a>
+</nav>
+	<form action="Article_add.action" method="get">
 		<h1>
-			标题：<input type="text" name="article_title"
-				value="<%=article.getTitle()%>">
+			标题：<input type="text" name="article_title">
 		</h1>
-		<em>作者：<%=author.getUsername()%></em>
 		<hr>
 		<article>
 			<h4>内容</h4>
 			<textarea rows="30" cols="100" name="article_content">
-				<%=article.getContent()%>
 			</textarea>
 		</article>
-		<input type="hidden" name="article_id" value="<%=article.getId()%>">
-		<input type="submit" value="保存">
+		<input type="hidden" name="author_name" value="<%=session.getAttribute("username") %>" >
+		<input type="submit" value="添加">
 	</form>
 </body>
 </html>

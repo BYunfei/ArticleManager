@@ -16,10 +16,20 @@ import cn.iwalkers.dao.UserDao;
 import cn.iwalkers.entity.Article;
 
 public class ArticleAction extends ActionSupport implements ServletRequestAware,ServletResponseAware{
+	private String target;
 	private int article_id;
 	private String article_title;
 	private String article_content;
+	private String author_name;
 	
+	public String getAuthor_name() {
+		return author_name;
+	}
+
+	public void setAuthor_name(String author_name) {
+		this.author_name = author_name;
+	}
+
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private HttpSession session;
@@ -40,10 +50,6 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
-	}
-	
-	public String detial(){
-		return "viewDetial";
 	}
 	
 	public String edit(){
@@ -90,7 +96,7 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		this.session = session;
 	}
 
-	public String save(){
+	public String update(){
 		Article article = new Article();
 		article.setId(article_id);
 		article.setPublishDate(new Date());
@@ -98,6 +104,33 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		article.setContent(article_content);
 		article.setTitle(article_title);
 		new ArticleDao().update(article);
+		return "update_success";
+	}
+	
+	public String delete(){
+		new ArticleDao().delete(article_id);
+		return SUCCESS;
+	}
+	
+	public String addPage(){
+		return "addPage";
+	}
+	
+	public String catalog(){
+		target = request.getParameter("target");
+		if(target == null || "".equals(target.trim())){
+			return "homePage";
+		}
+		return target;
+	}
+	
+	public String add(){
+		Article article = new Article();
+		article.setTitle(article_title);
+		article.setAuthor(new UserDao().getUserByUsername(author_name));
+		article.setPublishDate(new Date());
+		article.setContent(article_content);
+		new ArticleDao().save(article);
 		return SUCCESS;
 	}
 }

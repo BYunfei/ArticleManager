@@ -1,3 +1,6 @@
+<%@page import="cn.iwalkers.dao.ArticleDao"%>
+<%@page import="cn.iwalkers.entity.Article"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,7 +10,7 @@
 <title>iWalkers</title>
 </head>
 <body>
-	Welcome to iWalkers!
+	Welcome!
 	<hr>
 	<h1>登陆</h1>
 	<form action="login.action">
@@ -23,5 +26,6 @@
 	</table>
 	<input type="submit" value="登陆">
 	</form>
+	<h3><a href="Article_catalog.action?target=article_list">查看所有文章</a></h3>
 </body>
 </html>

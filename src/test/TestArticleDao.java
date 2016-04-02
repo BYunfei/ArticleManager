@@ -46,7 +46,6 @@ public class TestArticleDao {
 		}
 	}
 	
-	@Test
 	public void TestUpdateArticle(){
 		int article_id = 7;
 		String article_content = "Hello world! 4";
@@ -59,5 +58,13 @@ public class TestArticleDao {
 		article.setContent(article_content);
 		article.setTitle(article_title);
 		new ArticleDao().update(article);
+	}
+	
+	@Test
+	public void TestLoadAllArticles(){
+		List<Article> articleList = new ArticleDao().getAllArticles();
+		for(Article a:articleList){
+			System.out.println(a.getTitle()+" | "+ a.getAuthor().getUsername() +" | "+a.getContent());
+		}
 	}
 }
