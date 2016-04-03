@@ -9,6 +9,7 @@
 	<a href="Article_catalog.action?target=user_article_list">我的文章</a>
 	<a href="Article_catalog.action?target=addPage">添加文章</a>
 	<a href="user_logout.action">注销</a>
+	<a href="user_catalog.action?target=user_info">个人信息</a>
 	<%
 		}
 	%>

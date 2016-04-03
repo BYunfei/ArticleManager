@@ -9,4 +9,5 @@ public interface UserServices {
 	public boolean register(User user);
 	public User getUser(String username);
 	public List<User> getAllUsers();
+	public boolean update(User user);
 }

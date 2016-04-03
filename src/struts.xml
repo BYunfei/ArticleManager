@@ -15,6 +15,8 @@
 			<result name="home_page">index.jsp</result>
 			<result name="regist_success">/WEB-INF/user/user_article_list.jsp</result>
 			<result name="login_success">/WEB-INF/user/user_article_list.jsp</result>
+			<result name="user_info">/WEB-INF/user/user_info.jsp</result>
+			<result name="user_article_list">/WEB-INF/user/user_article_list.jsp</result>
 		</action>
 		
 		<action name="Article_*" class="cn.iwalkers.action.ArticleAction" method="{1}">

@@ -26,6 +26,8 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
 
 	private String username;
 	private String password;
+	private String target;
+	private String new_password;
 
 	public String regist() throws Exception {
 		if ("".equals(username))
@@ -63,6 +65,50 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
 		return "home_page";
 	}
 	
+	public String updatePassword(){
+		User u = new UserDao().getUserByUsername(session.get("username").toString());
+		if(u.getPassword().equals(password)){
+			u.setPassword(new_password);
+			if(new UserServiceImpl().update(u))
+				return "user_article_list";
+		}
+		return ERROR;
+	}
+	
+	public String catalog(){
+		if(!"".equals(target))
+			return target;
+		return ERROR;
+	}
+	
+	public HttpServletResponse getResponse() {
+		return response;
+	}
+
+	public void setResponse(HttpServletResponse response) {
+		this.response = response;
+	}
+
+	public Map getSession() {
+		return session;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
+
+	public String getNew_password() {
+		return new_password;
+	}
+
+	public void setNew_password(String new_password) {
+		this.new_password = new_password;
+	}
+
 	@Override
 	public void setServletResponse(HttpServletResponse response) {
 		this.response = response;

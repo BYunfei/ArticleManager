@@ -37,5 +37,16 @@ public class UserServiceImpl implements UserServices{
 	public List<User> getAllUsers() {
 		return null;
 	}
+
+	@Override
+	public boolean update(User user) {
+		try{
+			new UserDao().update(user);
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 	
 }
