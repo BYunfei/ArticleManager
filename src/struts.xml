@@ -10,14 +10,16 @@
 
 	<package name="user" extends="struts-default">
 
-		<action name="login" class="cn.iwalkers.action.LoginAction">
-			<result name="error">/content/error.jsp</result>
-			<result name="success">/WEB-INF/user/user_article_list.jsp</result>
+		<action name="user_*" class="cn.iwalkers.action.UserAction" method="{1}">
+			<result name="error">/WEB-INF/template/error.jsp</result>
+			<result name="home_page">index.jsp</result>
+			<result name="regist_success">/WEB-INF/user/user_article_list.jsp</result>
+			<result name="login_success">/WEB-INF/user/user_article_list.jsp</result>
 		</action>
 		
 		<action name="Article_*" class="cn.iwalkers.action.ArticleAction" method="{1}">
 			<result name="user_article_detial">/WEB-INF/user/user_article_detial.jsp?article_id=${article_id}</result>
-			<result name="userArticleList">/WEB-INF/user/user_article_list.jsp</result>
+			<result name="user_article_list">/WEB-INF/user/user_article_list.jsp</result>
 			<result name="article_detial">/WEB-INF/article/article_detial.jsp?article_id=${article_id}</result>
 			<result name="article_list">/WEB-INF/article/article_list.jsp</result>
 			<result name="editArticle">/WEB-INF/user/edit_article.jsp?article_id=${article_id}</result>
@@ -25,6 +27,7 @@
 			<result name="homePage">/index.jsp</result>
 			<result name="addPage">/WEB-INF/user/article_add.jsp</result>
 			<result>/WEB-INF/user/user_article_list.jsp</result>
+			<result name="error">/WEB-INF/template/error.jsp</result>
 		</action>
 
 	</package>

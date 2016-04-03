@@ -47,12 +47,13 @@ public class UserDao {
 		}catch(Exception e){
 			e.printStackTrace();
 			tx.rollback();
+			throw e;
 		}finally{
 			HibernateUtil.closeSession();
 		}
 	}
 	
-	public void save(List<User> userList){
+	public void save(List<User> userList) throws Exception{
 		Session session = HibernateUtil.currentSession();
 		Transaction tx = null;
 		try{
@@ -71,6 +72,7 @@ public class UserDao {
 		}catch(Exception e){
 			e.printStackTrace();
 			tx.rollback();
+			throw e;
 		}finally{
 			HibernateUtil.closeSession();
 		}

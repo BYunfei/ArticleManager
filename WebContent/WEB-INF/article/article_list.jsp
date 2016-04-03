@@ -10,10 +10,7 @@
 <title>所有文章</title>
 </head>
 <body>
-	<nav>
-		<a href="Article_catalog.action?target=homePage">首页</a> 
-		<a href="Article_catalog.action?target=article_list">所有文章</a>
-	</nav>
+	<jsp:include page="/WEB-INF/template/user_nav.jsp" />
 	<%
 		List<Article> articleList = new ArticleDao().getAllArticles();
 	%>

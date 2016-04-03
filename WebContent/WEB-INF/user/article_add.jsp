@@ -11,10 +11,7 @@
 <title>编辑文章</title>
 </head>
 <body>
-<nav>
-	<a href="Article_catalog.action?target=userArticleList">文章列表</a>
-	<a href="Article_catalog.action?target=addPage">添加文章</a>
-</nav>
+<jsp:include page="/WEB-INF/template/user_nav.jsp" />
 	<form action="Article_add.action" method="get">
 		<h1>
 			标题：<input type="text" name="article_title">

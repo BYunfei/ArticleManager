@@ -10,6 +10,8 @@ public class UserServiceImpl implements UserServices{
 	@Override
 	public boolean login(String username, String password) {
 		User u = new UserDao().getUserByUsername(username);
+		if(u == null)
+			return false;
 		if(u.getPassword().equals(password))
 			return true;
 		return false;
@@ -17,8 +19,13 @@ public class UserServiceImpl implements UserServices{
 
 	@Override
 	public boolean register(User user) {
-		new UserDao().save(user);
-		return true;
+		try{
+			new UserDao().save(user);	
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override

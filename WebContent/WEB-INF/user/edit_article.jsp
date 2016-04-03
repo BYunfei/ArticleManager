@@ -14,6 +14,7 @@
 		Article article = new ArticleDao().getArticleById(Integer.parseInt(request.getParameter("article_id")));
 		User author = article.getAuthor();
 	%>
+	<jsp:include page="/WEB-INF/template/user_nav.jsp" />
 	<form action="Article_update.action" method="get">
 		<h1>
 			标题：<input type="text" name="article_title"

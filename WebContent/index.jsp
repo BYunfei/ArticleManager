@@ -7,13 +7,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>iWalkers</title>
+<title>HomePage</title>
 </head>
 <body>
-	Welcome!
+	<h1>Welcome!</h1>
+	<jsp:include page="/WEB-INF/template/user_nav.jsp"></jsp:include>
 	<hr>
+	<%
+		if(session.getAttribute("username") == null){
+	%>
 	<h1>登陆</h1>
-	<form action="login.action">
+	<form action="user_login.action">
 	<table>
 		<tr>
 			<td>username:</td>
@@ -25,7 +29,21 @@
 		</tr>
 	</table>
 	<input type="submit" value="登陆">
+	<input type="submit" value="注册" onclick="register()">
 	</form>
-	<h3><a href="Article_catalog.action?target=article_list">查看所有文章</a></h3>
+	<%
+		}
+	%>
 </body>
+<script type="text/javascript">
+function login(){
+	var targetForm = document.forms[0];
+	targetForm.action = "user_login.action";
+}
+
+function register(){
+	var targetForm = document.forms[0];
+	targetForm.action = "user_regist.action";
+}
+</script>
 </html>

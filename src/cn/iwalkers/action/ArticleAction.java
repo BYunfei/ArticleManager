@@ -21,18 +21,27 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 	private String article_title;
 	private String article_content;
 	private String author_name;
+
+	private HttpServletRequest request;
+	private HttpServletResponse response;
+	private HttpSession session;
 	
 	public String getAuthor_name() {
 		return author_name;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
 	}
 
 	public void setAuthor_name(String author_name) {
 		this.author_name = author_name;
 	}
 
-	private HttpServletRequest request;
-	private HttpServletResponse response;
-	private HttpSession session;
 
 	public int getArticle_id() {
 		return article_id;
