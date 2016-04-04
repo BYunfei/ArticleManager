@@ -27,30 +27,30 @@ public class TestArticleDao {
 		for (int i = 0; i < 10; i++) {
 
 			Article article = new Article();
-			article.setTitle("Hello"+" "+i);
+			article.setTitle("Hello" + " " + i);
 			article.setAuthor(new UserDao().getUserById(3));
 			article.setPublishDate(new Date());
-			article.setContent("Hello World! "+i);
+			article.setContent("Hello World! " + i);
 			new ArticleDao().save(article);
 		}
 	}
-	
+
 	public void b_TestDeleteUserWithArticle() {
 		new UserDao().delete(1);
 	}
 
-	public void c_TestLoadArticleByUserId(){
+	public void c_TestLoadArticleByUserId() {
 		List<Article> artList = new ArticleDao().getArticleByUserId(3);
 		for (Article article : artList) {
-			System.out.println(article.getTitle()+" | "+article.getContent());
+			System.out.println(article.getTitle() + " | " + article.getContent());
 		}
 	}
-	
-	public void TestUpdateArticle(){
+
+	public void TestUpdateArticle() {
 		int article_id = 7;
 		String article_content = "Hello world! 4";
 		String article_title = "Hello 4";
-		
+
 		Article article = new Article();
 		article.setId(article_id);
 		article.setPublishDate(new Date());
@@ -59,12 +59,29 @@ public class TestArticleDao {
 		article.setTitle(article_title);
 		new ArticleDao().update(article);
 	}
-	
+
+	public void TestLoadAllArticles() {
+		for (int i = 0; i < 100; i++) {
+			System.out.println("------------" + i + "--------------");
+			List<Article> articleList = new ArticleDao().getAllArticles();
+			for (Article a : articleList) {
+				// System.out.println(a.getTitle()+" \t| "+
+				// a.getAuthor().getUsername() +" \t| "+a.getContent());
+				System.out.println(a.getTitle() + "   \t| " + a.getContent());
+			}
+		}
+	}
+
 	@Test
-	public void TestLoadAllArticles(){
-		List<Article> articleList = new ArticleDao().getAllArticles();
-		for(Article a:articleList){
-			System.out.println(a.getTitle()+" | "+ a.getAuthor().getUsername() +" | "+a.getContent());
+	public void TestArticlePage() {
+		int pageCount = new ArticleDao().getArticlePageCount(6);
+		System.out.println("一共有：" + pageCount + "页");
+		for (int i = 0; i < pageCount; i++) {
+			List<Article> list = new ArticleDao().getArticlesPage(i*6, 6);
+			System.out.println("------ 第 "+(i+1)+" 页 -------");
+			for (Article a : list) {
+				System.out.println(a.getTitle() + "   \t| " + a.getContent());
+			}
 		}
 	}
 }

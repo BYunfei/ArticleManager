@@ -3,6 +3,7 @@ package cn.iwalkers.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -48,7 +49,7 @@ public class ArticleDao{
 		try{
 			tx = session.beginTransaction();
 			String hql = "delete Article article where article.id = :id";
-			session.createQuery(hql).setString("id", new Integer(id).toString()).executeUpdate();
+			session.createQuery(hql).setString("id", id+"").executeUpdate();
 			tx.commit();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -76,11 +77,11 @@ public class ArticleDao{
 	public Article getArticleById(int id){
 		Session session = HibernateUtil.currentSession();
 		Transaction tx = null;
+		Article article;
 		try{
 			tx = session.beginTransaction();
-			Article article = (Article)session.get(Article.class,id);
+			article = (Article)session.get(Article.class,id);
 			tx.commit();
-			return article;
 		}catch(Exception e){
 			e.printStackTrace();
 			tx.rollback();
@@ -88,6 +89,7 @@ public class ArticleDao{
 		}finally{
 			HibernateUtil.closeSession();
 		}
+		return article;
 	}
 	
 	public List<Article> getArticleByUserId(int user_id){
@@ -98,14 +100,18 @@ public class ArticleDao{
 			articleList = new ArrayList<>();
 			tx = session.beginTransaction();
 			String hql = "From Article article where author = :user_id";
-			List pl = session.createQuery(hql).setString("user_id", new Integer(user_id).toString()).list();
+			List pl = session.createQuery(hql).setString("user_id", user_id+"").list();
 			for(Object ele:pl ){
 				Article artcile = (Article) ele;
 				articleList.add(artcile);
 			}
+			tx.commit();
 		}catch(Exception e){
 			e.printStackTrace();
+			tx.rollback();
 			return null;
+		}finally{
+			HibernateUtil.closeSession();
 		}
 		return articleList;
 	}
@@ -123,7 +129,7 @@ public class ArticleDao{
 				Article article = (Article) ele;
 				articleList.add(article);
 			}
-			return articleList;
+			tx.commit();
 		}catch(Exception e){
 			e.printStackTrace();
 			tx.rollback();
@@ -131,5 +137,99 @@ public class ArticleDao{
 		}finally{
 			HibernateUtil.closeSession();
 		}
+		return articleList;
 	}
+	
+	//获取页码数量
+	public int getArticlePageCount(int pageSize){
+		Session session = HibernateUtil.currentSession();
+		Transaction tx = null;
+		try{
+			tx = session .beginTransaction();
+			String hql = "select count(a) from Article as a";
+			Number pageCount = (Number)session.createQuery(hql).uniqueResult();
+			tx.commit();
+			return (int)Math.ceil(pageCount.intValue()/6.0);
+		}catch(Exception e){
+			e.printStackTrace();
+			tx.rollback();
+			return -1;
+		}finally{
+			HibernateUtil.closeSession();
+		}
+	}
+	
+	//获取页码数量
+	public int getArticlePageCount(int user_id,int pageSize){
+		Session session = HibernateUtil.currentSession();
+		Transaction tx = null;
+		try{
+			tx = session .beginTransaction();
+			String hql = "select count(a) from Article as a where a.author = :user_id";
+			Number pageCount = (Number)session.createQuery(hql).setString("user_id", user_id+"").uniqueResult();
+			tx.commit();
+			return (int)Math.ceil(pageCount.intValue()/6.0);
+		}catch(Exception e){
+			e.printStackTrace();
+			tx.rollback();
+			return -1;
+		}finally{
+			HibernateUtil.closeSession();
+		}
+	}
+	
+	//分页查询
+	public List<Article> getArticlesPage(int start,int pageSize){
+		Session session = HibernateUtil.currentSession();
+		Transaction tx = null;
+		List<Article> articleList;
+		try{
+			tx = session.beginTransaction();
+			articleList = new ArrayList<>();
+			String hql = "From Article article";
+			Query q = session.createQuery(hql);
+			q.setFirstResult(start);
+			q.setMaxResults(pageSize);
+			List pl = q.list();
+			for(Object ele: pl){
+				Article article = (Article)ele;
+				articleList.add(article);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			tx.rollback();
+			return null;
+		}finally{
+			HibernateUtil.closeSession();
+		}
+		return articleList;
+	}
+	
+	//分页查询
+	public List<Article> getArticlesPage(int user_id,int start,int pageSize){
+		Session session = HibernateUtil.currentSession();
+		Transaction tx = null;
+		List<Article> articleList;
+		try{
+			tx = session.beginTransaction();
+			articleList = new ArrayList<>();
+			String hql = "From Article article where author :user_id";
+			Query q = session.createQuery(hql).setString("user_id", user_id+"");
+			q.setFirstResult(start);
+			q.setMaxResults(pageSize);
+			List pl = q.list();
+			for(Object ele: pl){
+				Article article = (Article)ele;
+				articleList.add(article);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			tx.rollback();
+			return null;
+		}finally{
+			HibernateUtil.closeSession();
+		}
+		return articleList;
+	}
+	
 }

@@ -17,16 +17,17 @@
 			<result name="login_success">/WEB-INF/user/user_article_list.jsp</result>
 			<result name="user_info">/WEB-INF/user/user_info.jsp</result>
 			<result name="user_article_list">/WEB-INF/user/user_article_list.jsp</result>
+			<result name="add_article">/WEB-INF/user/add_article.jsp</result>
 		</action>
 		
 		<action name="Article_*" class="cn.iwalkers.action.ArticleAction" method="{1}">
 			<result name="user_article_detial">/WEB-INF/user/user_article_detial.jsp?article_id=${article_id}</result>
-			<result name="user_article_list">/WEB-INF/user/user_article_list.jsp</result>
+			<result name="user_article_list">/WEB-INF/user/user_article_list.jsp?pageNow=${pageNow}&amp;pageSize=${pageSize}</result>
 			<result name="article_detial">/WEB-INF/article/article_detial.jsp?article_id=${article_id}</result>
-			<result name="article_list">/WEB-INF/article/article_list.jsp</result>
+			<result name="article_list">/WEB-INF/article/article_list.jsp?pageNow=${pageNow}&amp;pageSize=${pageSize}</result>
 			<result name="editArticle">/WEB-INF/user/edit_article.jsp?article_id=${article_id}</result>
 			<result name="update_success">/WEB-INF/user/user_article_detial.jsp?article_id=${article_id}</result>
-			<result name="homePage">/index.jsp</result>
+			<result name="homePage">/index.jsp?pageNow=${pageNow}&amp;pageSize=${pageSize}</result>
 			<result name="addPage">/WEB-INF/user/article_add.jsp</result>
 			<result>/WEB-INF/user/user_article_list.jsp</result>
 			<result name="error">/WEB-INF/template/error.jsp</result>

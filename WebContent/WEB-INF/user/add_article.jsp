@@ -11,12 +11,13 @@
 <title>编辑文章</title>
 </head>
 <body>
-<jsp:include page="/WEB-INF/template/user_nav.jsp" />
+	<h1>${sessionScope.username },你好</h1>
+	<jsp:include page="/WEB-INF/template/user_nav.jsp" />
+	<hr>
 	<form action="Article_add.action" method="get">
-		<h1>
+		<h2>
 			标题：<input type="text" name="article_title">
-		</h1>
-		<hr>
+		</h2>
 		<article>
 			<h4>内容</h4>
 			<textarea rows="30" cols="100" name="article_content">

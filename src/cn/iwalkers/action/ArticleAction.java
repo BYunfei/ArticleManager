@@ -21,10 +21,75 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 	private String article_title;
 	private String article_content;
 	private String author_name;
-
+	private String pageNow;
+	private String pageCount;
+	private String pageSize;
+	
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private HttpSession session;
+
+	public String update(){
+		Article article = new Article();
+		article.setId(article_id);
+		article.setPublishDate(new Date());
+		article.setAuthor(new ArticleDao().getArticleById(article_id).getAuthor());
+		article.setContent(article_content);
+		article.setTitle(article_title);
+		new ArticleDao().update(article);
+		return "update_success";
+	}
+	
+	public String delete(){
+		new ArticleDao().delete(article_id);
+		return SUCCESS;
+	}
+	
+	public String addPage(){
+		return "addPage";
+	}
+	
+	public String catalog(){
+		target = request.getParameter("target");
+		if(target == null || "".equals(target.trim())){
+			return "homePage";
+		}
+		return target;
+	}
+	
+	public String add(){
+		Article article = new Article();
+		article.setTitle(article_title);
+		article.setAuthor(new UserDao().getUserByUsername(author_name));
+		article.setPublishDate(new Date());
+		article.setContent(article_content);
+		new ArticleDao().save(article);
+		return SUCCESS;
+	}
+	
+	public String getPageNow() {
+		return pageNow;
+	}
+
+	public void setPageNow(String pageNow) {
+		this.pageNow = pageNow;
+	}
+
+	public String getPageCount() {
+		return pageCount;
+	}
+
+	public void setPageCount(String pageCount) {
+		this.pageCount = pageCount;
+	}
+
+	public String getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(String pageSize) {
+		this.pageSize = pageSize;
+	}
 	
 	public String getAuthor_name() {
 		return author_name;
@@ -105,41 +170,4 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		this.session = session;
 	}
 
-	public String update(){
-		Article article = new Article();
-		article.setId(article_id);
-		article.setPublishDate(new Date());
-		article.setAuthor(new ArticleDao().getArticleById(article_id).getAuthor());
-		article.setContent(article_content);
-		article.setTitle(article_title);
-		new ArticleDao().update(article);
-		return "update_success";
-	}
-	
-	public String delete(){
-		new ArticleDao().delete(article_id);
-		return SUCCESS;
-	}
-	
-	public String addPage(){
-		return "addPage";
-	}
-	
-	public String catalog(){
-		target = request.getParameter("target");
-		if(target == null || "".equals(target.trim())){
-			return "homePage";
-		}
-		return target;
-	}
-	
-	public String add(){
-		Article article = new Article();
-		article.setTitle(article_title);
-		article.setAuthor(new UserDao().getUserByUsername(author_name));
-		article.setPublishDate(new Date());
-		article.setContent(article_content);
-		new ArticleDao().save(article);
-		return SUCCESS;
-	}
 }
