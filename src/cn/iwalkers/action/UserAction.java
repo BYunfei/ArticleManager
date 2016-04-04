@@ -30,22 +30,31 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
 	private String new_password;
 
 	public String regist() throws Exception {
-		if ("".equals(username))
+		if ("".equals(username)){
 			this.addFieldError("username", "用户名不能为空");
-		if ("".equals(password))
+			return ERROR;
+		}
+		if ("".equals(password)){
 			this.addFieldError("password", "密码不能为空");
-		User user = new User();
-		user.setUsername(username);
-		user.setPassword(password);
-		if (new UserServiceImpl().register(user)) {
-			session.put("username", user.getUsername());
-			return "regist_success";
+			return ERROR;
+		}
+		if (new UserDao().isName(username)) {
+			this.addFieldError("username", "用户名已存在");
+			return ERROR;
 		} else {
-			return "error";
+			User user = new User();
+			user.setUsername(username);
+			user.setPassword(password);
+			if (new UserServiceImpl().register(user)) {
+				session.put("username", user.getUsername());
+				return "regist_success";
+			} else {
+				return "error";
+			}
 		}
 	}
 
-	public String login() throws Exception{
+	public String login() throws Exception {
 		if ("".equals(username))
 			this.addFieldError("username", "用户名不能为空");
 		if ("".equals(password))
@@ -59,28 +68,28 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
 		return ERROR;
 	}
 
-	public String logout() throws Exception{
-		if(session.get("username")!=null)
+	public String logout() throws Exception {
+		if (session.get("username") != null)
 			session.remove("username");
 		return "home_page";
 	}
-	
-	public String updatePassword(){
+
+	public String updatePassword() {
 		User u = new UserDao().getUserByUsername(session.get("username").toString());
-		if(u.getPassword().equals(password)){
+		if (u.getPassword().equals(password)) {
 			u.setPassword(new_password);
-			if(new UserServiceImpl().update(u))
+			if (new UserServiceImpl().update(u))
 				return "user_article_list";
 		}
 		return ERROR;
 	}
-	
-	public String catalog(){
-		if(!"".equals(target))
+
+	public String catalog() {
+		if (!"".equals(target))
 			return target;
 		return ERROR;
 	}
-	
+
 	public HttpServletResponse getResponse() {
 		return response;
 	}

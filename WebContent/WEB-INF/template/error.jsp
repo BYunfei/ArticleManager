@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<nav>
-		<a href="Article_catalog.action?target=homePage">首页</a> 
-		<a href="Article_catalog.action?target=article_list">所有文章</a>
-	</nav>
+<jsp:include page="/WEB-INF/template/user_nav.jsp"></jsp:include>
 <h1>出错啦</h1>
+<s:fielderror />
 </body>
 </html>
