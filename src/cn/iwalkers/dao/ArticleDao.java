@@ -213,7 +213,7 @@ public class ArticleDao{
 		try{
 			tx = session.beginTransaction();
 			articleList = new ArrayList<>();
-			String hql = "From Article article where author :user_id";
+			String hql = "From Article article where author = :user_id";
 			Query q = session.createQuery(hql).setString("user_id", user_id+"");
 			q.setFirstResult(start);
 			q.setMaxResults(pageSize);

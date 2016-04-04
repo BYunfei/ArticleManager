@@ -14,7 +14,7 @@
 	<h1>${sessionScope.username },你好</h1>
 	<jsp:include page="/WEB-INF/template/user_nav.jsp" />
 	<hr>
-	<form action="Article_add.action" method="get">
+	<form action="Article_add.action" method="post">
 		<h2>
 			标题：<input type="text" name="article_title">
 		</h2>

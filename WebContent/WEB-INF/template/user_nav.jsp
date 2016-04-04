@@ -25,7 +25,7 @@
 	</nav>
 
 	<div id="login_box" style="display: none;">
-		<form action="user_login.action">
+		<form action="user_login.action" method="post">
 			<table>
 				<tr>
 					<td>username:</td>

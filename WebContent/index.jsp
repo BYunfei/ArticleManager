@@ -44,9 +44,9 @@
 	<%
 		}
 	%>
-	<i>当前第<%=pageNow %>页</i>
+	<i>第<%=pageNow %>页</i>
 	<%
-		if (pageNow < pageCount) {	
+		if (pageNow < pageCount) {
 	%>
 	<a href="Article_catalog.action?target=homePage&pageNow=<%=pageNow + 1%>">下一页</a>
 	<%

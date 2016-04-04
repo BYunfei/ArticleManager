@@ -19,12 +19,10 @@
 		int pageSize = 6; //每页数量
 		if (request.getParameter("pageNow") != null && !"".equals(request.getParameter("pageNow")))
 			pageNow = Integer.parseInt(request.getParameter("pageNow"));
-		if (request.getParameter("pageCount") != null && !"".equals(request.getParameter("pageCount")))
-			pageCount = Integer.parseInt(request.getParameter("pageCount"));
 		if (request.getParameter("pageSize") != null && !"".equals(request.getParameter("pageSize")))
 			pageSize = Integer.parseInt(request.getParameter("pageSize"));
 		pageCount = new ArticleDao().getArticlePageCount(u.getId() ,pageSize);
-		List<Article> articleList = new ArticleDao().getArticlesPage((pageNow - 1) * pageSize, pageSize);
+		List<Article> articleList = new ArticleDao().getArticlesPage(u.getId(),(pageNow - 1) * pageSize, pageSize);
 	%>
 
 	<h1><%=u.getUsername()%>,你好
@@ -52,7 +50,7 @@
 	<%
 		}
 	%>
-	<i>当前第<%=pageNow%>页
+	<i>第<%=pageNow%>页
 	</i>
 	<%
 		if (pageNow < pageCount) {
@@ -62,5 +60,6 @@
 	<%
 		}
 	%>
+	<%=pageCount %>
 </body>
 </html>

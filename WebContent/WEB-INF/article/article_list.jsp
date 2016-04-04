@@ -44,7 +44,7 @@
 	<%
 		}
 	%>
-	<i>当前第<%=pageNow %>页</i>
+	<i>第<%=pageNow %>页</i>
 	<%
 		if (pageNow < pageCount) {	
 	%>
