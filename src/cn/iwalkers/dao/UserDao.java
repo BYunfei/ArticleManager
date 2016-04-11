@@ -12,7 +12,7 @@ import org.hibernate.Transaction;
 import cn.iwalkers.entity.User;
 import cn.iwalkers.util.HibernateUtil;
 
-public class UserDao {
+public class UserDao extends BaseDao<User>{
 	private List<User> userResult;
 	private List<User> result;
 	
@@ -53,7 +53,7 @@ public class UserDao {
 		}
 	}
 	
-	public void save(List<User> userList) throws Exception{
+	public void save(List<User> userList){
 		Session session = HibernateUtil.currentSession();
 		Transaction tx = null;
 		try{

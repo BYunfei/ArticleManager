@@ -21,8 +21,11 @@
 			pageNow = Integer.parseInt(request.getParameter("pageNow"));
 		if (request.getParameter("pageSize") != null && !"".equals(request.getParameter("pageSize")))
 			pageSize = Integer.parseInt(request.getParameter("pageSize"));
-		pageCount = new ArticleDao().getArticlePageCount(u.getId() ,pageSize);
-		List<Article> articleList = new ArticleDao().getArticlesPage(u.getId(),(pageNow - 1) * pageSize, pageSize);
+		List<Article> articleList = null ;
+		if(u!=null){
+			pageCount = new ArticleDao().getArticlePageCount(u.getId() ,pageSize);
+			articleList = new ArticleDao().getArticlesPage(u.getId(),(pageNow - 1) * pageSize, pageSize);
+		}
 	%>
 
 	<h1><%=u.getUsername()%>,你好
@@ -36,7 +39,7 @@
 	<div>
 		<h3>
 			<a
-				href="Article_catalog.action?target=article_detial&article_id=<%=article.getId()%>">标题：<%=article.getTitle()%></a>
+				href="Article_catalog.action?target=user_article_detial&article_id=<%=article.getId()%>">标题：<%=article.getTitle()%></a>
 		</h3>
 		<p><%=article.getContent()%></p>
 	</div>
@@ -60,6 +63,5 @@
 	<%
 		}
 	%>
-	<%=pageCount %>
 </body>
 </html>

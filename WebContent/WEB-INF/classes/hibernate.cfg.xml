@@ -6,7 +6,7 @@
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.password">970116hz</property>
-        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/iwalkers</property>
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/ArticlesManager?characterEncoding=utf8</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         
@@ -18,5 +18,6 @@
         <!-- 持久化类 -->
         <mapping class="cn.iwalkers.entity.User"/>
         <mapping class="cn.iwalkers.entity.Article" />
+        <mapping class="cn.iwalkers.entity.Comment" />
     </session-factory>
 </hibernate-configuration>

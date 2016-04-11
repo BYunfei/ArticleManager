@@ -52,6 +52,7 @@
 	<%
 		}
 	%>
+	<jsp:include page="/WEB-INF/template/footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
 function login(){

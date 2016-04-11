@@ -33,7 +33,7 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		Article article = new Article();
 		article.setId(article_id);
 		article.setPublishDate(new Date());
-		article.setAuthor(new ArticleDao().getArticleById(article_id).getAuthor());
+		article.setAuthor(new ArticleDao().get(article_id).getAuthor());
 		article.setContent(article_content);
 		article.setTitle(article_title);
 		new ArticleDao().update(article);

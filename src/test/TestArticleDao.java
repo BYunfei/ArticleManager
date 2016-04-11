@@ -2,6 +2,7 @@ package test;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -9,8 +10,10 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import cn.iwalkers.dao.ArticleDao;
+import cn.iwalkers.dao.CommentDao;
 import cn.iwalkers.dao.UserDao;
 import cn.iwalkers.entity.Article;
+import cn.iwalkers.entity.Comment;
 import cn.iwalkers.entity.User;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -22,7 +25,7 @@ public class TestArticleDao {
 			new UserDao().save(users[i]);
 		}
 	}
-
+	
 	public void a_TestSaveArticle() {
 		for (int i = 0; i < 10; i++) {
 
@@ -54,7 +57,7 @@ public class TestArticleDao {
 		Article article = new Article();
 		article.setId(article_id);
 		article.setPublishDate(new Date());
-		article.setAuthor(new ArticleDao().getArticleById(article_id).getAuthor());
+		article.setAuthor(new ArticleDao().get(article_id).getAuthor());
 		article.setContent(article_content);
 		article.setTitle(article_title);
 		new ArticleDao().update(article);
@@ -72,7 +75,6 @@ public class TestArticleDao {
 		}
 	}
 
-	@Test
 	public void TestArticlePage() {
 		int pageCount = new ArticleDao().getArticlePageCount(6);
 		System.out.println("一共有：" + pageCount + "页");
@@ -82,6 +84,35 @@ public class TestArticleDao {
 			for (Article a : list) {
 				System.out.println(a.getTitle() + "   \t| " + a.getContent());
 			}
+		}
+	}
+	
+	public void TestGetArticle(){
+		Article a = new ArticleDao().get(12);
+		System.out.println(a.getTitle());
+	}
+	
+	public void TestSave(){
+		Article a = new Article();
+		a.setTitle("Test BaseDao<Article>");
+		a.setContent("\n");
+		a.setAuthor(new UserDao().getUserByUsername("abc"));
+		a.setPublishDate(new Date());
+		new ArticleDao().save(a);
+	}
+	
+	@Test
+	public void TestGetComment(){
+//		Comment c = new CommentDao().get(1);
+//		System.out.println(c.getAuthor().getUsername());
+//		Article a = new ArticleDao().get(1);
+		List<Comment> c = new ArticleDao().getComments(1);
+		for(Comment comment : c){
+			System.out.println("来自:"+comment.getAuthor().getUsername()+"的评论："+comment.getContent());
+			List<Comment> replayList = new CommentDao().getChild(comment.getId());
+			for(Comment replay: replayList)
+				if(replay!=null)
+					System.out.println("回复："+replay.getContent());
 		}
 	}
 }

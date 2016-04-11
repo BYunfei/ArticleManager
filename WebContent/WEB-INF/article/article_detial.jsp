@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%
-	Article article = new ArticleDao().getArticleById(Integer.parseInt(request.getParameter("article_id")));
+	Article article = new ArticleDao().get(Integer.parseInt(request.getParameter("article_id")));
 	User author = article.getAuthor();
 %>
 <title><%=article.getTitle()%></title>
@@ -22,5 +22,14 @@
 	<article>
 		<%=article.getContent()%>
 	</article>
+	
+	<%
+		if(session.getAttribute("username")!=null&&author.getUsername().equals(session.getAttribute("username").toString())){
+	%>
+	<a href="Article_edit.action?article_id=<%=article.getId()%>">编辑</a>
+	<a href="Article_delete.action?article_id=<%=article.getId()%>">删除</a>
+	<% 
+		}	
+	%>
 </body>
 </html>

@@ -9,9 +9,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import cn.iwalkers.entity.Article;
+import cn.iwalkers.entity.Comment;
 import cn.iwalkers.util.HibernateUtil;
 
-public class ArticleDao{
+public class ArticleDao extends BaseDao<Article>{
 	
 	public void save(Article article){
 		Session session = HibernateUtil.currentSession();
@@ -230,6 +231,29 @@ public class ArticleDao{
 			HibernateUtil.closeSession();
 		}
 		return articleList;
+	}
+	
+	public List<Comment> getComments(int article_id){
+		Session session = HibernateUtil.currentSession();
+		Transaction tx = null;
+		List<Comment> commentList = null;
+		try{
+			tx = session.beginTransaction();
+			commentList = new ArrayList<>();
+			String hql = "From Comment where belong = :article_id";
+			Query q = session.createQuery(hql).setString("article_id", article_id+"");
+			List pl = q.list();
+			for(Object ele: pl){
+				Comment c = (Comment) ele;
+				commentList.add(c);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			tx.rollback();
+		}finally{
+			HibernateUtil.closeSession();
+			return commentList;
+		}
 	}
 	
 }

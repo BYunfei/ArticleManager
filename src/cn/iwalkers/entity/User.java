@@ -20,9 +20,9 @@ public class User{
 	@Column(name = "user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; //主键ID
-	@Column(name = "user_username",unique=true)
+	@Column(name = "user_username",unique=true,nullable=false)
 	private String username; //管理员的用户名
-	@Column(name = "user_password")
+	@Column(name = "user_password",nullable=false)
 	private String password; //管理员的密码
 	@OneToMany(targetEntity=Article.class,mappedBy="author")
 	@Cascade(CascadeType.ALL)
@@ -30,6 +30,14 @@ public class User{
 
 	public int getId() {
 		return id;
+	}
+
+	public Set<Article> getArticle() {
+		return article;
+	}
+
+	public void setArticle(Set<Article> article) {
+		this.article = article;
 	}
 
 	public void setId(int id) {
