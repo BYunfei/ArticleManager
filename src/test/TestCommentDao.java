@@ -48,6 +48,13 @@ public class TestCommentDao {
 	}
 	
 	@Test
+	public void getChild(){
+		List<Comment> cList = new CommentDao().getChild(1);
+		for(Comment c:cList){
+			System.out.println(c.getContent());
+		}
+	}
+	
 	public void testGetRootComment(){
 		List<Comment> cList = new CommentDao().getRootComments(2);
 		for(Comment c:cList){
@@ -55,6 +62,7 @@ public class TestCommentDao {
 		}
 	}
 	
+	@Test
 	public void b_replayComment(){
 		Comment c = new Comment();
 		c.setAuthor(new UserDao().get(2));

@@ -32,6 +32,10 @@
 			<result>/WEB-INF/user/user_article_list.jsp</result>
 			<result name="error">/WEB-INF/template/error.jsp</result>
 		</action>
+		
+		<action name="comment_*" class="cn.iwalkers.action.CommentAction" method="{1}">
+			<result name="{1}_success">/WEB-INF/article/article_detial.jsp?article_id=${article_id}</result>
+		</action>
 
 	</package>
 </struts>

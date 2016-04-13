@@ -29,6 +29,9 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 	private HttpServletResponse response;
 	private HttpSession session;
 
+	/*
+	 * 更新文章
+	 */
 	public String update(){
 		Article article = new Article();
 		article.setId(article_id);
@@ -40,15 +43,17 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		return "update_success";
 	}
 	
+	/*
+	 * 删除文章
+	 */
 	public String delete(){
 		new ArticleDao().delete(article_id);
 		return SUCCESS;
 	}
 	
-	public String addPage(){
-		return "addPage";
-	}
-	
+	/*
+	 * 跳转
+	 */
 	public String catalog(){
 		target = request.getParameter("target");
 		if(target == null || "".equals(target.trim())){
@@ -57,6 +62,9 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		return target;
 	}
 	
+	/*
+	 * 添加文章
+	 */
 	public String add(){
 		Article article = new Article();
 		article.setTitle(article_title);
@@ -66,6 +74,7 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		new ArticleDao().save(article);
 		return SUCCESS;
 	}
+
 	
 	public String getPageNow() {
 		return pageNow;

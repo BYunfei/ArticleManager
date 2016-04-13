@@ -39,7 +39,7 @@
 	<div>
 		<h3>
 			<a
-				href="Article_catalog.action?target=user_article_detial&article_id=<%=article.getId()%>">标题：<%=article.getTitle()%></a>
+				href="Article_catalog.action?target=article_detial&article_id=<%=article.getId()%>">标题：<%=article.getTitle()%></a>
 		</h3>
 		<p><%=article.getContent()%></p>
 	</div>
