@@ -26,6 +26,7 @@ public class TestArticleDao {
 		}
 	}
 	
+	@Test
 	public void a_TestSaveArticle() {
 		for (int i = 0; i < 10; i++) {
 
@@ -101,7 +102,6 @@ public class TestArticleDao {
 		new ArticleDao().save(a);
 	}
 	
-	@Test
 	public void TestGetComment(){
 //		Comment c = new CommentDao().get(1);
 //		System.out.println(c.getAuthor().getUsername());

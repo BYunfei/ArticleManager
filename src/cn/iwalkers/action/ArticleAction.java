@@ -20,6 +20,7 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 	private int article_id;
 	private String article_title;
 	private String article_content;
+	private String article_summary;
 	private String author_name;
 	private String pageNow;
 	private String pageCount;
@@ -39,6 +40,7 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		article.setAuthor(new ArticleDao().get(article_id).getAuthor());
 		article.setContent(article_content);
 		article.setTitle(article_title);
+		article.setSummary(article_summary);
 		new ArticleDao().update(article);
 		return "update_success";
 	}
@@ -71,11 +73,21 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		article.setAuthor(new UserDao().getUserByUsername(author_name));
 		article.setPublishDate(new Date());
 		article.setContent(article_content);
+		article.setSummary(article_summary);
 		new ArticleDao().save(article);
 		return SUCCESS;
 	}
 
 	
+	
+	public String getArticle_summary() {
+		return article_summary;
+	}
+
+	public void setArticle_summary(String article_summary) {
+		this.article_summary = article_summary;
+	}
+
 	public String getPageNow() {
 		return pageNow;
 	}

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -36,8 +37,11 @@ public class Article {
 	private User author;	//作者，映射到用户
 	@Column(name = "article_publishDate")
 	private Date publishDate;	//发布时间
+	@Lob
 	@Column(name = "article_content")
 	private String content;	//内容
+	@Column(name = "article_summary")
+	private String summary;
 	@OneToMany(targetEntity=Comment.class,mappedBy="belong")
 	@Cascade(CascadeType.ALL)
 	private Set<Comment> comment;
@@ -89,5 +93,15 @@ public class Article {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+	
+	
 
 }
